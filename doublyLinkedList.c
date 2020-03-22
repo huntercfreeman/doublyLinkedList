@@ -56,31 +56,113 @@ static doublyLinkedListNode* AddValueBefore(doublyLinkedListNode* current, int v
 
 static doublyLinkedListNode* AddNodeFirst(doublyLinkedListNode* head, doublyLinkedListNode* node)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  head->previous = node;
+  node->next = head;
+  node->previous = NULL;
+
+  return node;
 }
 
 static doublyLinkedListNode* AddValueFirst(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  doublyLinkedListNode* node = (doublyLinkedListNode*)malloc(sizeof(doublyLinkedListNode));
+
+  head->previous = node;
+
+  node->value = value;
+  node->next = head;
+  node->previous = NULL;
+
+  return node;
 }
 
 static doublyLinkedListNode* AddNodeLast(doublyLinkedListNode* head, doublyLinkedListNode* node)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  if(head->next == NULL)
+  {
+    head->next = node;
+    node->next = NULL;
+    node->previous = head;
+
+    return head;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+  }
+
+  temporary->next = node;
+  node->next = NULL;
+  node->previous = temporary;
+
+  return head;
 }
 
 static doublyLinkedListNode* AddValueLast(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  if(head->next == NULL)
+  {
+    doublyLinkedListNode* node = (doublyLinkedListNode*)malloc(sizeof(doublyLinkedListNode));
+    node->value = value;
+    node->next = NULL;
+    node->previous = head;
+
+    head->next = node;
+
+
+    return head;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+  }
+
+  doublyLinkedListNode* node = (doublyLinkedListNode*)malloc(sizeof(doublyLinkedListNode));
+  node->value = value;
+  node->next = NULL;
+  node->previous = temporary;
+
+  temporary->next = node;
+
+  return head;
 }
 
 static doublyLinkedListNode* Clear(doublyLinkedListNode* head)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(head == NULL) return NULL;
+
+  if(head->next == NULL)
+  {
+    free(head);
+    head = NULL;
+
+    return NULL;
+  }
+
+  doublyLinkedListNode* temporary1 = head;
+  while(temporary1->next != NULL)
+  {
+    doublyLinkedListNode* temporary2 = temporary1->next;
+
+    free(temporary1);
+
+    temporary1 = temporary2;
+  }
+
+  free(temporary1);
+
   return NULL;
 }
 
