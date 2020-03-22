@@ -4,27 +4,53 @@
 
 static doublyLinkedListNode* AddNodeAfter(doublyLinkedListNode* current, doublyLinkedListNode* node)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(current == NULL) return NULL;
+
+  node->next = current->next;
+  node->next->previous = node;
+  node->previous = current;
+
+  current->next = node;
+
   return current;
 }
 
 static doublyLinkedListNode* AddValueAfter(doublyLinkedListNode* current, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(current == NULL) return NULL;
+
+  doublyLinkedListNode* temporary = (doublyLinkedListNode*)malloc(sizeof(doublyLinkedListNode));
+  temporary->value = value;
+  temporary->next = current->next;
+  temporary->next->previous = temporary;
+  temporary->previous = current;
+
+  current->next = temporary;
+
   return current;
 }
 
-// not possible with doublyLinkedList
 static doublyLinkedListNode* AddNodeBefore(doublyLinkedListNode* current, doublyLinkedListNode* node)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(current == NULL) return NULL;
+
+  current->previous->next = node;
+  current->previous = node;
+  node->next = current;
+
   return current;
 }
 
-// not possible with doublyLinkedList
 static doublyLinkedListNode* AddValueBefore(doublyLinkedListNode* current, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(current == NULL) return NULL;
+
+  doublyLinkedListNode* temporary = (doublyLinkedListNode*)malloc(sizeof(doublyLinkedListNode));
+  temporary->value = value;
+  current->previous->next = temporary;
+  temporary->previous = temporary;
+  temporary->next = current;
+
   return current;
 }
 
