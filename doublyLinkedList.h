@@ -59,7 +59,7 @@ typedef struct doublyLinkedListAPIStruct {
   doublyLinkedListNode* (* const FindLast)(doublyLinkedListNode* head, int value);
 
   // Removes the specified node from the LinkedList
-  doublyLinkedListNode* (* const RemoveNode)(doublyLinkedListNode* head, doublyLinkedListNode* node, int (* Predicate)(doublyLinkedListNode *node1, doublyLinkedListNode *node2));
+  doublyLinkedListNode* (* const RemoveNode)(doublyLinkedListNode* head, doublyLinkedListNode* node, int (* predicate)(doublyLinkedListNode *node1, doublyLinkedListNode *node2));
   // Removes the first occurrence of the specified value from the LinkedList
   doublyLinkedListNode* (* const RemoveFirst)(doublyLinkedListNode* head, int value);
   // Removes the last occurrence of the specified value from the LinkedList

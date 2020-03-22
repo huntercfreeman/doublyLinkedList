@@ -274,8 +274,35 @@ static doublyLinkedListNode* FindLast(doublyLinkedListNode* head, int value)
 
 static doublyLinkedListNode* RemoveNode(doublyLinkedListNode* head, doublyLinkedListNode* node, int (* predicate)(doublyLinkedListNode *node1, doublyLinkedListNode *node2))
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+  if(predicate == NULL) return NULL;
+
+  if(predicate(head, node))
+  {
+    doublyLinkedListNode* temporary = head->next;
+    temporary->previous = NULL;
+
+    free(head);
+    head = NULL;
+
+    return temporary;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+    if(predicate(temporary, node))
+    {
+      temporary->previous->next = temporary->next;
+      free(temporary);
+      temporary = NULL;
+
+      return head;
+    }
+  }
+
+  return head;
 }
 
 static doublyLinkedListNode* RemoveFirst(doublyLinkedListNode* head, int value)
