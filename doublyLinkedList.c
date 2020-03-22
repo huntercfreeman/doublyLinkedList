@@ -168,7 +168,21 @@ static doublyLinkedListNode* Clear(doublyLinkedListNode* head)
 
 static int Contains(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(head == NULL) return 0;
+
+  if(head->value == value)
+  {
+    return 1;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+
+    if(temporary->value == value) return 1;
+  }
+
   return 0;
 }
 
@@ -180,26 +194,82 @@ static doublyLinkedListNode* CopyToArray(doublyLinkedListNode* head, int startin
 
 static int Equal(doublyLinkedListNode* headOne, doublyLinkedListNode* headTwo)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return 0;
+  if((headOne == NULL) && (headTwo == NULL)) return 1;
+  if((headOne == NULL) || (headTwo == NULL)) return 0;
+
+  int equivalence = 1;
+
+  doublyLinkedListNode* temporary1 = headOne;
+  doublyLinkedListNode* temporary2 = headTwo;
+
+  if(temporary1->value != temporary2->value) equivalence = 0;
+
+  while(equivalence && (temporary1->next != NULL) && (temporary2->next != NULL))
+  {
+    temporary1 = temporary1->next;
+    temporary2 = temporary2->next;
+
+    if(temporary1->value != temporary2->value) equivalence = 0;
+  }
+
+  if(equivalence != 0)
+  {
+    if((temporary1->next == NULL) && (temporary2->next == NULL)) return 1;
+    if((temporary1->next == NULL) || (temporary2->next == NULL)) return 0;
+  }
+
+  return equivalence;
 }
 
 static int Count(doublyLinkedListNode* head)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return 0;
+  if(head == NULL) return 0;
+
+  int count = 1;
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+
+    count++;
+  }
+
+  return count;
 }
 
 static doublyLinkedListNode* FindFirst(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
+  if(head == NULL) return NULL;
+
+  if(head->value == value) return head;
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+    if(temporary->value == value) return temporary;
+  }
+
   return NULL;
 }
 
 static doublyLinkedListNode* FindLast(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  doublyLinkedListNode* foundNode = NULL;
+
+  if(head->value == value) foundNode = head;
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+    if(temporary->value == value) foundNode = temporary;
+  }
+
+  return foundNode;
 }
 
 static doublyLinkedListNode* RemoveNode(doublyLinkedListNode* head, doublyLinkedListNode* node, int (* predicate)(doublyLinkedListNode *node1, doublyLinkedListNode *node2))
