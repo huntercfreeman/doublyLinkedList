@@ -307,26 +307,137 @@ static doublyLinkedListNode* RemoveNode(doublyLinkedListNode* head, doublyLinked
 
 static doublyLinkedListNode* RemoveFirst(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  if(head->value == value)
+  {
+    doublyLinkedListNode* newHead = head->next;
+    newHead->previous = NULL;
+    free(head);
+    head = NULL;
+
+    return newHead;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+
+    if(temporary->value == value)
+    {
+      temporary->previous->next = temporary->next;
+      temporary->next->previous = temporary->previous;
+      free(temporary);
+      temporary = NULL;
+
+      return head;
+    }
+  }
+
+  return head;
 }
 
 static doublyLinkedListNode* RemoveLast(doublyLinkedListNode* head, int value)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  doublyLinkedListNode* removeNode;
+  int removeNodeIsHead;
+
+  if(head->value == value)
+  {
+    removeNode = head;
+    removeNodeIsHead = 1;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+
+    if(temporary->value == value)
+    {
+      removeNodeIsHead = 0;
+      removeNode = temporary;
+    }
+  }
+
+  if(removeNodeIsHead)
+  {
+    if(head->next != NULL)
+    {
+      doublyLinkedListNode* newHead = head->next;
+      newHead->previous = NULL;
+      free(head);
+      head = NULL;
+
+      return newHead;
+    }
+    else
+    {
+      free(head);
+      head = NULL;
+
+      return NULL;
+    }
+  }
+
+  removeNode->previous->next = removeNode->next;
+  removeNode->next->previous = removeNode->previous;
+  free(removeNode);
+  removeNode = NULL;
+
+  return head;
 }
 
-static doublyLinkedListNode* RemoveStart(doublyLinkedListNode* head, int value)
+static doublyLinkedListNode* RemoveStart(doublyLinkedListNode* head)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  if(head->next != NULL)
+  {
+    doublyLinkedListNode* newHead = head->next;
+    newHead->previous = NULL;
+    free(head);
+    head = NULL;
+
+    return newHead;
+  }
+  else
+  {
+    free(head);
+    head = NULL;
+
+    return NULL;
+  }
 }
 
-static doublyLinkedListNode* RemoveEnd(doublyLinkedListNode* head, int value)
+static doublyLinkedListNode* RemoveEnd(doublyLinkedListNode* head)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  if(head->next == NULL)
+  {
+    doublyLinkedListNode* newHead = head->next;
+    newHead->previous = NULL;
+    free(head);
+    head = NULL;
+
+    return NULL;
+  }
+
+  doublyLinkedListNode* temporary = head;
+  while(temporary->next != NULL)
+  {
+    temporary = temporary->next;
+  }
+
+  temporary->previous->next = NULL;
+  free(temporary);
+  temporary = NULL;
+
+  return head;
 }
 
 static char* ToString(doublyLinkedListNode* head)

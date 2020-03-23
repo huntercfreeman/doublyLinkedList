@@ -65,9 +65,9 @@ typedef struct doublyLinkedListAPIStruct {
   // Removes the last occurrence of the specified value from the LinkedList
   doublyLinkedListNode* (* const RemoveLast)(doublyLinkedListNode* head, int value);
   // Removes the starting (head) node;
-  doublyLinkedListNode* (* const RemoveStart)(doublyLinkedListNode* head, int value);
+  doublyLinkedListNode* (* const RemoveStart)(doublyLinkedListNode* head);
   // Removes the ending (tail) node;
-  doublyLinkedListNode* (* const RemoveEnd)(doublyLinkedListNode* head, int value);
+  doublyLinkedListNode* (* const RemoveEnd)(doublyLinkedListNode* head);
 
   // Returns a string that describes the list.
   char* (* const ToString)(doublyLinkedListNode* head);
