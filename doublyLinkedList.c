@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "doublyLinkedList.h"
+#include "stringBuilder.h"
 
 static doublyLinkedListNode* AddNodeAfter(doublyLinkedListNode* current, doublyLinkedListNode* node)
 {
@@ -440,10 +441,26 @@ static doublyLinkedListNode* RemoveEnd(doublyLinkedListNode* head)
   return head;
 }
 
+// Look into freeing the stringBuilder
 static char* ToString(doublyLinkedListNode* head)
 {
-  fprintf(stderr, "ERROR in file %s line:%d %s is not implemented do not use\n", __FILE__, __LINE__, __FUNCTION__);
-  return NULL;
+  if(head == NULL) return NULL;
+
+  stringBuilder* stringBuilder = malloc(sizeof(stringBuilder));
+  stringBuilderAPI.AppendInt(stringBuilder, head->value);
+
+  doublyLinkedListNode* temporary = head;
+
+  while(temporary->next != NULL)
+  {
+    stringBuilderAPI.AppendChars(stringBuilder, "->");
+
+    temporary = temporary->next;
+    stringBuilderAPI.AppendInt(stringBuilder, temporary->value);
+  }
+  //stringBuilderAPI.AppendChars(stringBuilder, "\n");
+
+  return stringBuilder->string;
 }
 
 static doublyLinkedListNode* DeleteInOrder(doublyLinkedListNode *head, int value)
