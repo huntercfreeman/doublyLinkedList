@@ -55,7 +55,7 @@ static doublyLinkedListNode* AddValueBefore(doublyLinkedListNode* current, int v
   return current;
 }
 
-static doublyLinkedListNode* AddNodeFirst(doublyLinkedListNode* head, doublyLinkedListNode* node)
+static doublyLinkedListNode* AddNodeStart(doublyLinkedListNode* head, doublyLinkedListNode* node)
 {
   if(head == NULL) return NULL;
 
@@ -66,7 +66,7 @@ static doublyLinkedListNode* AddNodeFirst(doublyLinkedListNode* head, doublyLink
   return node;
 }
 
-static doublyLinkedListNode* AddValueFirst(doublyLinkedListNode* head, int value)
+static doublyLinkedListNode* AddValueStart(doublyLinkedListNode* head, int value)
 {
   if(head == NULL) return NULL;
 
@@ -81,7 +81,7 @@ static doublyLinkedListNode* AddValueFirst(doublyLinkedListNode* head, int value
   return node;
 }
 
-static doublyLinkedListNode* AddNodeLast(doublyLinkedListNode* head, doublyLinkedListNode* node)
+static doublyLinkedListNode* AddNodeEnd(doublyLinkedListNode* head, doublyLinkedListNode* node)
 {
   if(head == NULL) return NULL;
 
@@ -107,7 +107,7 @@ static doublyLinkedListNode* AddNodeLast(doublyLinkedListNode* head, doublyLinke
   return head;
 }
 
-static doublyLinkedListNode* AddValueLast(doublyLinkedListNode* head, int value)
+static doublyLinkedListNode* AddValueEnd(doublyLinkedListNode* head, int value)
 {
   if(head == NULL) return NULL;
 
@@ -463,33 +463,6 @@ static char* ToString(doublyLinkedListNode* head)
   return stringBuilder->string;
 }
 
-static doublyLinkedListNode* DeleteInOrder(doublyLinkedListNode *head, int value)
-{
-  if(head == NULL) return NULL;
-
-  if(head->value == value)
-  {
-    doublyLinkedListNode *temporary = head->next;
-    free(head);
-    head = NULL;
-
-    return temporary;
-  }
-
-  doublyLinkedListNode* temporary = head;
-  while(temporary->next != NULL)
-  {
-    if(temporary->next->value == value)
-    {
-        temporary->next = temporary->next->next;
-        return head;
-    }
-    temporary = temporary->next;
-  }
-
-  return head;
-}
-
 static doublyLinkedListNode* InsertInOrder(doublyLinkedListNode *head, int value)
 {
   if(head == NULL) return NULL;
@@ -518,19 +491,6 @@ static doublyLinkedListNode* InsertInOrder(doublyLinkedListNode *head, int value
   return head;
 }
 
-static doublyLinkedListNode* InsertAfterNode(doublyLinkedListNode* current, int value)
-{
-  if(current == NULL) return NULL;
-
-  doublyLinkedListNode* temporary = (doublyLinkedListNode*)malloc(sizeof(doublyLinkedListNode));
-  temporary->next = current->next;
-  temporary->value = value;
-
-  current->next = temporary;
-
-  return current;
-}
-
 static void Print(doublyLinkedListNode* head)
 {
   if(head == NULL) return;
@@ -546,8 +506,7 @@ static void Print(doublyLinkedListNode* head)
 }
 
 doublyLinkedListAPIStruct const doublyLinkedListAPI =
-{DeleteInOrder, InsertInOrder,
-  InsertAfterNode, Print, AddNodeAfter, AddValueAfter, AddNodeBefore, AddValueBefore,
-AddNodeFirst, AddValueFirst, AddNodeLast, AddValueLast, Clear, Contains, CopyToArray,
+{Print, InsertInOrder, AddNodeAfter, AddValueAfter, AddNodeBefore, AddValueBefore,
+AddNodeStart, AddValueStart, AddNodeEnd, AddValueEnd, Clear, Contains, CopyToArray,
 Equal, Count, FindFirst, FindLast, RemoveNode, RemoveFirst, RemoveLast, RemoveStart,
 RemoveEnd, ToString};

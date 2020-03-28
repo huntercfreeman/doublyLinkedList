@@ -15,10 +15,9 @@ typedef struct doublyLinkedListNode{
 } doublyLinkedListNode;
 
 typedef struct doublyLinkedListAPIStruct {
-  doublyLinkedListNode* (* const DeleteInOrder)(doublyLinkedListNode *head, int value);
-  doublyLinkedListNode* (* const InsertInOrder)(doublyLinkedListNode *head, int value);
-  doublyLinkedListNode* (* const InsertAfterNode)(doublyLinkedListNode* current, int value);
   void (* const Print)(doublyLinkedListNode* head);
+
+  doublyLinkedListNode* (* const InsertInOrder)(doublyLinkedListNode *head, int value);
 
   // Adds the specified new node after the specified existing node in the LinkedList
   doublyLinkedListNode* (* const AddNodeAfter)(doublyLinkedListNode* current, doublyLinkedListNode* node);
@@ -30,13 +29,13 @@ typedef struct doublyLinkedListAPIStruct {
   doublyLinkedListNode* (* const AddValueBefore)(doublyLinkedListNode* current, int value);
 
   // Adds the specified new node at the start of the LinkedList
-  doublyLinkedListNode* (* const AddNodeFirst)(doublyLinkedListNode* head, doublyLinkedListNode* node);
+  doublyLinkedListNode* (* const AddNodeStart)(doublyLinkedListNode* head, doublyLinkedListNode* node);
   // Adds a new node containing the specified value at the start of the LinkedList
-  doublyLinkedListNode* (* const AddValueFirst)(doublyLinkedListNode* head, int value);
+  doublyLinkedListNode* (* const AddValueStart)(doublyLinkedListNode* head, int value);
   // Adds the specified new node at the end of the LinkedList
-  doublyLinkedListNode* (* const AddNodeLast)(doublyLinkedListNode* head, doublyLinkedListNode* node);
+  doublyLinkedListNode* (* const AddNodeEnd)(doublyLinkedListNode* head, doublyLinkedListNode* node);
   // Adds a new node containing the specified value at the end of the LinkedList
-  doublyLinkedListNode* (* const AddValueLast)(doublyLinkedListNode* head, int value);
+  doublyLinkedListNode* (* const AddValueEnd)(doublyLinkedListNode* head, int value);
 
   // Removes all nodes from the LinkedList
   doublyLinkedListNode* (* const Clear)(doublyLinkedListNode* head);
